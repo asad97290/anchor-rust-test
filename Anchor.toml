@@ -1,0 +1,19 @@
+[toolchain]
+anchor_version = "0.31.1"
+[features]
+resolution = true
+skip-lint = false
+
+[programs.localnet]
+anchor_rust_test = "7bP565Kfda36jnWLjeHj5eJc8pMxzLDNWLs8Vvr9Too6"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+cluster = "Localnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test = "cargo test"
+

@@ -1,0 +1,23 @@
+[workspace]
+members = [
+    "programs/*"
+, "tests"]
+resolver = "2"
+
+[workspace.dependencies]
+solana-message = "2.2"
+solana-pubkey = "2.2"
+solana-system-interface = "1"
+solana-keypair = "2.2"
+solana-signer = "2.2"
+solana-transaction = "2.2"
+solana-instruction = "2.2"
+
+[profile.release]
+overflow-checks = true
+lto = "fat"
+codegen-units = 1
+[profile.release.build-override]
+opt-level = 3
+incremental = false
+codegen-units = 1

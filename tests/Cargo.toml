@@ -1,0 +1,18 @@
+[package]
+name = "tests"
+version = "0.1.0"
+description = "Created with Anchor"
+edition = "2021"
+
+[dependencies]
+anchor-client = "0.31.1"
+anchor-rust-test = { version = "0.1.0", path = "../programs/anchor-rust-test" }
+solana-message.workspace = true
+solana-transaction = { workspace = true, features = ["precompiles", "verify"] }
+solana-signer.workspace = true
+solana-system-interface.workspace = true
+solana-pubkey.workspace = true
+solana-keypair.workspace = true
+solana-instruction.workspace = true
+litesvm = "0.6.1"
+
