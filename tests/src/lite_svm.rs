@@ -1,5 +1,5 @@
 use {
-    anchor_client::anchor_lang::solana_program::example_mocks::solana_sdk::system_program,
+    anchor_client::{anchor_lang::solana_program::example_mocks::solana_sdk::system_program, solana_sdk::clock::Clock},
     litesvm::LiteSVM,
     solana_instruction::{account_meta::AccountMeta, Instruction},
     solana_keypair::Keypair,
@@ -47,7 +47,17 @@ fn test_lite_svm() {
 
     assert_eq!(value_bytes, 0u64.to_le_bytes().to_vec());
 
-    let blockhash = svm.latest_blockhash();
+
+
+
+    // Time travel to allow increment
+    let mut initial_clock = svm.get_sysvar::<Clock>();
+    initial_clock.unix_timestamp = 1749666741 + (60 * 61); 
+    svm.set_sysvar::<Clock>(&initial_clock);
+
+
+
+   let blockhash = svm.latest_blockhash();
     let msg = Message::new_with_blockhash(
         &[Instruction {
             program_id,
@@ -61,9 +71,7 @@ fn test_lite_svm() {
     svm.send_transaction(tx).unwrap();
 
 
-
-
-      let account_data = svm.get_account(&counter_pda).unwrap().data;
+    let account_data = svm.get_account(&counter_pda).unwrap().data;
     let value_bytes = &account_data[8..];
 
     assert_eq!(value_bytes, 1u64.to_le_bytes().to_vec());

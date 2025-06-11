@@ -14,7 +14,8 @@ pub mod anchor_rust_test {
     pub fn increment(ctx: Context<Increment>) -> Result<()> {
         let counter = &mut ctx.accounts.counter;
         msg!("Previous counter: {}", counter.count);
- 
+        let now = Clock::get()?.unix_timestamp;
+        require!(now > 1749666741+(60*60),MyError::CounterNotReady);
         counter.count += 1;
         msg!("Counter incremented! Current count: {}", counter.count);
         Ok(())
@@ -50,4 +51,10 @@ pub struct Increment<'info> {
 #[account]
 pub struct Counter {
     pub count: u64, // 8 bytes
+}
+
+#[error_code]
+pub enum MyError {
+    #[msg("The counter cannot be incremented yet.")]
+    CounterNotReady,
 }
