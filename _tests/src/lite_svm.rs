@@ -52,7 +52,7 @@ fn test_lite_svm() {
 
     // Time travel to allow increment
     let mut initial_clock = svm.get_sysvar::<Clock>();
-    initial_clock.unix_timestamp = 1749666741 + (60 * 61); 
+    initial_clock.unix_timestamp +=  (60 * 61); 
     svm.set_sysvar::<Clock>(&initial_clock);
 
 

@@ -40,6 +40,9 @@ fn test_initialize() {
     // Check that the counter account was initialized correctly
     let counter_account: Counter = program.account::<Counter>(counter_pda).unwrap();
     assert_eq!(counter_account.count, 0);
+
+    
+
     
    
 
